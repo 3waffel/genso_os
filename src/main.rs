@@ -3,22 +3,36 @@
 
 use core::panic::PanicInfo;
 
-static HELLO: &[u8] = b"Welcome to GensoOS";
-
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
-    let vga_buffer = 0xb8000 as *mut u8;
-    for (i, &byte) in HELLO.iter().enumerate() {
-        unsafe {
-            *vga_buffer.offset(i as isize * 2) = byte;
-            *vga_buffer.offset(i as isize * 2 + 1) = 0xb;
-        }
-    }
-
-    loop {}
-}
+mod vga_buffer;
 
 #[panic_handler]
 fn panic(_info: &PanicInfo) -> ! {
+    loop {}
+}
+
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    let s = r#"
+                          || Welcome to Genso OS ||
+________________________________________________________________________________
+
+       .88888.                                          .88888.  .d88888b  
+      d8'   `88                                        d8'   `8b 88.    "' 
+      88        .d8888b. 88d888b. .d8888b. .d8888b.    88     88 `Y88888b. 
+      88   YP88 88ooood8 88'  `88 Y8ooooo. 88'  `88    88     88       `8b 
+      Y8.   .88 88.  ... 88    88       88 88.  .88    Y8.   .8P d8'   .8P 
+       `88888'  `88888P' dP    dP `88888P' `88888P'     `8888P'   Y88888P  
+
+________________________________________________________________________________
+
+
+
+
+
+                                                           ___               
+                                                           | |  Now Loading...  
+    "#;
+    println!("{}", s);
+
     loop {}
 }
