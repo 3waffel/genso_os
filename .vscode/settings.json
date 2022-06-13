@@ -1,5 +1,6 @@
 {
     // https://github.com/rust-lang/vscode-rust/issues/729
     "rust-analyzer.cargo.target": "x86_64-unknown-none",
-    "rust-analyzer.checkOnSave.allTargets": false
+    "rust-analyzer.checkOnSave.allTargets": false,
+    "editor.formatOnSave": true
 }
